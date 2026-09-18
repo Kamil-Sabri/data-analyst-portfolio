@@ -12,3 +12,12 @@
 | `GROUP_CONCAT(col SEPARATOR ',')` | `STRING_AGG(col, ',')` |
 | `TRUE` / `FALSE` | `1` / `0` (type BIT) |
 | `IFNULL` | `COALESCE` (identique à BigQuery) |
+
+### Exemples pratiques
+#### Backtricks > Crochets 
+```sql
+-- MySQL
+SELECT `order`, `customer name` FROM orders;
+-- T-SQL
+SELECT [order], [customer name] FROM orders;
+```
