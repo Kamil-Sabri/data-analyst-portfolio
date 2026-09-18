@@ -21,3 +21,15 @@ SELECT `order`, `customer name` FROM orders;
 -- T-SQL
 SELECT [order], [customer name] FROM orders;
 ```
+#### LIMIT/OFFSET → OFFSET/FETCH 
+```sql
+-- MySQL
+SELECT * FROM Sales.Customer
+ORDER BY CustomerID
+LIMIT 10 OFFSET 20;
+
+-- T-SQL
+SELECT * FROM Sales.Customer
+ORDER BY CustomerID
+OFFSET 20 ROWS FETCH NEXT 10 ROWS ONLY;
+```
