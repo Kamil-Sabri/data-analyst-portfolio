@@ -41,11 +41,12 @@ SELECT *
 FROM Sales.Customer
 ORDER BY CustomerID
 OFFSET 20 ROWS FETCH NEXT 10 ROWS ONLY;
-
---Rôle : découper un grand résultat en "pages", pour n'en afficher qu'une tranche à la fois.
--- NB : Placer obligatoirement ORDER BY avant OFFSET
--- Exemple — 10 clients d'AdventureWorks, en sautant les 20 premiers (page 3 si chaque page fait 10 lignes)
 ```
+
+Rôle : découper un grand résultat en "pages", pour n'en afficher qu'une tranche à la fois.
+Exemple — 10 clients d'AdventureWorks, en sautant les 20 premiers (page 3 si chaque page fait 10 lignes)
+
+NB : Placer obligatoirement ORDER BY avant OFFSET
 
 #### AUTO_INCREMENT → IDENTITY
 ```sql
@@ -113,12 +114,13 @@ SELECT CONVERT (date, '15/03/2024' , 103);
 Rôle : transformer une chaîne de texte en vraie valeur de type date, exploitable pour trier, filtrer ou calculer des écarts.
 Le code 103 est un identifiant de style prédéfini par T-SQL, qui indique dans quel ordre lire les composants de la date. Chaque nombre correspond à une convention régionale figée :
 
-Code	Format	Exemple
-101	mois/jour/année (US)	03/15/2024
-103	jour/mois/année (français/UK)	15/03/2024
-104	jour.mois.année (allemand)	15.03.2024
-111	année/mois/jour (japonais)	2024/03/15
-120	année-mois-jour heure:min:sec (ISO)	2024-03-15 14:30:00
+| Code| Format| Exemple
+|---|---|---|
+|101|mois/jour/année (US)|03/15/2024
+|103|jour/mois/année (français/UK)|15/03/2024
+|104|jour.mois.année (allemand)|15.03.2024
+|111|année/mois/jour (japonais)|2024/03/15
+|120|année-mois-jour heure:min:sec (ISO)|2024-03-15 14:30:00
 
 ```sql
 -- ou plus lisible
