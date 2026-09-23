@@ -41,6 +41,10 @@ SELECT *
 FROM Sales.Customer
 ORDER BY CustomerID
 OFFSET 20 ROWS FETCH NEXT 10 ROWS ONLY;
+
+--Rôle : découper un grand résultat en "pages", pour n'en afficher qu'une tranche à la fois.
+-- NB : Placer obligatoirement ORDER BY avant OFFSET
+-- Exemple — 10 clients d'AdventureWorks, en sautant les 20 premiers (page 3 si chaque page fait 10 lignes)
 ```
 
 #### AUTO_INCREMENT → IDENTITY
@@ -69,7 +73,20 @@ VALUES ('Connexion', NOW());
 -- T-SQL
 INSERT INTO Logs (message, date_creation) 
 VALUES ('Connexion',GETDATE());
-```
+```  
+Le rôle d'une table "Logs" : une table qui enregistre un historique d'événements — chaque ligne = une action qui s'est produite, avec la date/heure exacte. Utilisée pour tracer ce qui s'est passé (connexions, erreurs, actions utilisateur), pas pour stocker des données métier.
+
+Décomposition de l'exemple :
+INSERT INTO Logs → ajoute une nouvelle ligne dans la table Logs (message, date_creation) → précise dans quelles colonnes écrire
+VALUES ('Connexion', NOW()) → les valeurs à insérer : le texte 'Connexion' dans la colonne message, et l'heure actuelle (via NOW()) dans la colonne 
+
+**Résultat dans la table :**
+
+| id | message | date_creation |
+|---|---|---|
+| 1 | Connexion | 2026-09-23 14:32:07 |
+
+
 #### DATEDIFF → signature différente
 ```sql
 -- MySQL (2 arguments, renvoie des jours)
@@ -92,11 +109,24 @@ SELECT STR_TO_DATE('15/03/2024', '%d/%m/%Y');
 
 -- T-SQL (avec code de style 103 = jour/mois/année)
 SELECT CONVERT (date, '15/03/2024' , 103);
+``` 
+Rôle : transformer une chaîne de texte en vraie valeur de type date, exploitable pour trier, filtrer ou calculer des écarts.
+Le code 103 est un identifiant de style prédéfini par T-SQL, qui indique dans quel ordre lire les composants de la date. Chaque nombre correspond à une convention régionale figée :
 
+Code	Format	Exemple
+101	mois/jour/année (US)	03/15/2024
+103	jour/mois/année (français/UK)	15/03/2024
+104	jour.mois.année (allemand)	15.03.2024
+111	année/mois/jour (japonais)	2024/03/15
+120	année-mois-jour heure:min:sec (ISO)	2024-03-15 14:30:00
+
+```sql
 -- ou plus lisible
 SELECT TRY_PARSE ('15/03/2024' AS date USING 'fr-FR');
-
 ```
+TRY_PARSE a un avantage : si la conversion échoue (texte invalide), il renvoie NULL au lieu de stopper la requête avec une erreur — utile pour nettoyer un jeu de données comportant des valeurs de date mal formatées
+
+
 #### DATE_FORMAT → FORMAT
 ```sql
 -- MySQL
@@ -106,7 +136,22 @@ SELECT DATE_FORMAT (NOW (), '%d %M %Y');
 -- T-SQL
 SELECT FORMAT (GETDATE(), 'dd MMMM yyyy');
 -- Résultat : "15 March 2024"
-``` 
+```
+
+Point d'attention : en T-SQL il faut toujours ajouter le troisième argument de locale ('fr-FR') si on souhaite obtenir les noms de mois en français — sans lui, FORMAT affiche par défaut en anglais ("23 September 2026") selon la configuration du serveur.
+
+| Élément affiché | MySQL (`DATE_FORMAT`) | T-SQL (`FORMAT`) |
+|---|---|---|
+| Année sur 4 chiffres | `%Y` | `yyyy` |
+| Année sur 2 chiffres | `%y` | `yy` |
+| Mois en chiffres (01-12) | `%m` | `MM` |
+| Mois en toutes lettres | `%M` | `MMMM` |
+| Mois abrégé | `%b` | `MMM` |
+| Jour du mois (01-31) | `%d` | `dd` |
+| Jour de la semaine en lettres | `%W` | `dddd` |
+| Heure (24h) | `%H` | `HH` |
+| Minutes | `%i` | `mm` |
+| Secondes | `%s` | `ss` |
 
 #### GROUP_CONTACT → STRING_AGG
 ```sql
