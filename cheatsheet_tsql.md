@@ -16,26 +16,36 @@
 ### Exemples pratiques
 #### Backtricks → Crochets 
 ```sql
+
 -- MySQL
-SELECT `order`, `customer name` FROM orders;
+SELECT `order`, 
+        `customer name` 
+FROM orders;
+
 -- T-SQL
-SELECT [order], [customer name] FROM orders;
+SELECT  [order], 
+        [customer name] 
+FROM orders;
 ```
 #### LIMIT/OFFSET → OFFSET/FETCH 
 ```sql
+
 -- MySQL
-SELECT * FROM Sales.Customer
+SELECT * 
+FROM Sales.Customer
 ORDER BY CustomerID
 LIMIT 10 OFFSET 20;
 
 -- T-SQL
-SELECT * FROM Sales.Customer
+SELECT * 
+FROM Sales.Customer
 ORDER BY CustomerID
 OFFSET 20 ROWS FETCH NEXT 10 ROWS ONLY;
 ```
 
-### AUTO_INCREMENT → IDENTITY
+#### AUTO_INCREMENT → IDENTITY
 ```sql
+
 -- MySQL
 CREATE TABLE Clients (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -49,15 +59,18 @@ CREATE TABLE Clients (
 );
 ```
 
-### NOW () → GETDATE ()
+#### NOW () → GETDATE ()
 ```sql
+
 -- MySQL
-INSERT INTO Logs (message, date_creation) VALUES ('Connexion', NOW());
+INSERT INTO Logs (message, date_creation) 
+VALUES ('Connexion', NOW());
 
 -- T-SQL
-INSERT INTO Logs (message, date_creation) VALUES ('Connexion',GETDATE());
+INSERT INTO Logs (message, date_creation) 
+VALUES ('Connexion',GETDATE());
 ```
-### DATEDIFF → signature différente
+#### DATEDIFF → signature différente
 ```sql
 -- MySQL (2 arguments, renvoie des jours)
 SELECT DATEDIFF ('2024-03-15', '2024-01-01');
@@ -72,7 +85,7 @@ SELECT DATEDIFF (day, 'OrderDate', 'ShipDate') AS DelaiLivraison
 FROM Sales.SalesOrderHeader;
 
 ```
-### STR_TO_DATE → CONVERT/TRY_PARSE
+#### STR_TO_DATE → CONVERT/TRY_PARSE
 ```sql
 -- MySQL
 SELECT STR_TO_DATE('15/03/2024', '%d/%m/%Y');
@@ -84,7 +97,7 @@ SELECT CONVERT (date, '15/03/2024' , 103);
 SELECT TRY_PARSE ('15/03/2024' AS date USING 'fr-FR');
 
 ```
-### DATE_FORMAT → FORMAT
+#### DATE_FORMAT → FORMAT
 ```sql
 -- MySQL
 SELECT DATE_FORMAT (NOW (), '%d %M %Y');
@@ -95,4 +108,48 @@ SELECT FORMAT (GETDATE(), 'dd MMMM yyyy');
 -- Résultat : "15 March 2024"
 ``` 
 
+#### GROUP_CONTACT → STRING_AGG
+```sql
+-- MySQL
+SELECT CustomerID, GROUP_CONCAT(ProductName SEPARATOR ' , ') AS Produits
+FROM Orders
+GROUP BY CustomerID;
+
+-- T-SQL
+SELECT CustomerID, STRING_AGG (ProductName, ' , ') AS Produits
+FROM Orders
+GROUP BY CustomerID;
+
+-- Résultat attendu pour un client : Produits = "Vélo route, Casque, Gants"
+```
+#### TRUSE/FALSE → 1/0
+```sql
+-- MySQL
+SELECT *
+FROM Produits
+WHERE actif = TRUE;
+
+-- T-SQL
+SELECT *
+FROM Produits
+WHERE actif = 1;
+```
+
+#### IFNULL → COALESCE
+```sql
+
+-- MySQL
+SELECT
+    nom,
+    IFNULL (remise, 0) AS remise_appliquee
+FROM Produits;
+
+-- T-SQL
+SELECT 
+    nom,
+    COALESCE (remise, 0) AS remise_appliquee
+FROM Produits;
+
+-- Cas d'usage : afficher 0 au lieu de NULL quand un produit n'a pas de remise, pour éviter des erreurs dans un calcul en aval
+```
 
