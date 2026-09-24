@@ -107,6 +107,7 @@ Consigne : comme pour J2, écris tes tentatives, note les résultats et blocages
 
 <!-- #endregion -->
 
+## Réponses
 
 ### Exercice 1 — INNER JOIN, vérification cardinalité
 RAS
