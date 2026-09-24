@@ -106,3 +106,20 @@ Teste d'abord avec UNION, puis avec UNION ALL. Si un nom de catégorie existe au
 Consigne : comme pour J2, écris tes tentatives, note les résultats et blocages dans diagnostic_gaps.md, on corrige ensemble ensuite.
 
 <!-- #endregion -->
+
+
+### Exercice 1 — INNER JOIN, vérification cardinalité
+RAS
+`COUNT(*)` identique avant/après jointure (31465) → cardinalité 1-vers-1 entre SalesOrderHeader et Customer, aucun doublon créé.
+
+### Exercice 2 — LEFT JOIN, valeurs manquantes
+RAS
+238 produits sans aucune vente (`WHERE SalesOrderID IS NULL` après LEFT JOIN). Pattern à retenir : LEFT JOIN + IS NULL sur la clé de la table de droite = trouver les non-correspondances.
+
+### Exercice 3 — Doublons via jointure 1-vers-plusieurs
+**Blocage initial** : conclusion tirée avant d'avoir les vrais résultats — à toujours vérifier après exécution, jamais supposer.
+**Blocage syntaxe** : tentative de tester deux conditions contradictoires (`COUNT < 1 AND COUNT > 1`) — impossible, aucune valeur ne peut satisfaire les deux à la fois.
+**Résultat final** : aucun doublon de ProductID dans ProductProductPhoto (`HAVING COUNT > 1` → 0 ligne). Pour trouver les produits sans photo, nécessité de repartir de `Product` en LEFT JOIN (même logique que l'exercice 2), pas de la table photo elle-même.
+
+### Exercice 4 — UNION vs UNION ALL
+Non traité — confusion initiale entre UNION (empiler des colonnes similaires de deux tables) et JOIN (relier des tables sur une clé commune). Correction apportée avant résolution.

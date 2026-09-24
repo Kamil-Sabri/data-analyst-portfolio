@@ -1,5 +1,5 @@
 
--- Requête 1 : SELECT + WHERE
+-- Exo 1 : SELECT + WHERE
 
 SELECT 
 	ProductID,
@@ -9,7 +9,7 @@ FROM Production.Product
 WHERE ListPrice < 500
 ORDER BY ListPrice DESC;
 
--- Requête 2 : GROUP BY + agrégation
+-- Exo 2 : GROUP BY + agrégation
 SELECT
 	CustomerID,
 	COUNT(CustomerID) AS Nb_commandes
@@ -17,7 +17,7 @@ FROM Sales.SalesOrderHeader
 GROUP BY CustomerID
 ORDER BY Nb_commandes DESC;
 
--- Requête 3 : HAVING 
+-- Exo 3 : HAVING 
 SELECT
 	CustomerID,
 	COUNT(CustomerID) AS Nb_commandes
@@ -26,7 +26,7 @@ GROUP BY CustomerID
 HAVING COUNT(CustomerID) > 5
 ORDER BY Nb_commandes DESC;
 
--- Requête 4 : CASE WHEN
+-- Exo 4 : CASE WHEN
 SELECT
     ProductID,
     Name,
@@ -39,7 +39,7 @@ SELECT
 FROM Production.Product;
 
 
--- Requête 5 : 
+-- Exo 5 : 
 SELECT *
 FROM Sales.SalesOrderHeader
 WHERE OrderDate BETWEEN '20230101' AND '20231231';
@@ -50,7 +50,7 @@ SELECT *
 FROM Sales.SalesOrderHeader
 WHERE YEAR(OrderDate) = 2023;
 
--- Requête 6 : Combinaison
+-- Exo 6 : Combinaison
 USE AdventureWorks2025
 SELECT
     pc.Name AS Categorie,

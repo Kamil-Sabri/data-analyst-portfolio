@@ -234,3 +234,34 @@ T-SQL n'a pas d'équivalent à `USING`. Toujours écrire la forme complète :
 -- T-SQL
 JOIN Sales.SalesOrderHeader soh ON sod.SalesOrderID = soh.SalesOrderID
 ```
+
+## REGEXP → pas d'équivalent natif, utiliser LIKE ou PATINDEX
+
+T-SQL n'a pas de moteur d'expressions régulières natif comme MySQL. Alternatives selon le besoin :
+
+**LIKE avec wildcards — pour les cas simples (préfixe, suffixe, plage de caractères)**
+
+| Wildcard T-SQL | Signification |
+|---|---|
+| `%` | n'importe quelle suite de caractères |
+| `_` | exactement un caractère |
+| `[abc]` | un caractère parmi a, b, c |
+| `[a-z]` | un caractère dans la plage a-z |
+| `[^abc]` | un caractère qui N'EST PAS a, b, c |
+
+```sql
+-- MySQL
+SELECT * FROM Product WHERE Name REGEXP '^A';
+
+-- T-SQL
+SELECT * FROM Production.Product WHERE Name LIKE 'A%';
+```
+
+**PATINDEX — pour détecter un motif n'importe où dans le texte**
+
+```sql
+-- Trouve les noms contenant au moins un chiffre
+SELECT * FROM Customers WHERE PATINDEX('%[0-9]%', Name) > 0;
+```
+
+**Limite à connaître** : pour un vrai besoin de regex complexe (validation d'email, extraction avancée), T-SQL seul ne suffit pas — traiter plutôt côté Python (Pandas, module `re`) ou configurer une fonction CLR côté serveur (hors périmètre courant d'un Data Analyst BI).
