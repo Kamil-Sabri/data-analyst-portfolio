@@ -1,4 +1,5 @@
 
+<<<<<<< HEAD
 -- Requête 1 : SELECT + WHERE
 
 SELECT 
@@ -64,3 +65,5 @@ JOIN Production.ProductSubcategory psc ON p.ProductSubcategoryID = psc.ProductSu
 JOIN Production.ProductCategory pc ON psc.ProductCategoryID = pc.ProductCategoryID
 GROUP BY pc.Name, YEAR(soh.OrderDate), MONTH(soh.OrderDate)
 ORDER BY Annee, Mois, Categorie;
+=======
+>>>>>>> 5e22bcff4ae4ba5b8713f07efa0ca20bd0c6a765
