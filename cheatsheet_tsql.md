@@ -200,3 +200,37 @@ FROM Produits;
 -- Cas d'usage : afficher 0 au lieu de NULL quand un produit n'a pas de remise, pour éviter des erreurs dans un calcul en aval
 ```
 
+## Format de date sûr en T-SQL
+
+**Piège** : écrire une date littérale avec tirets (`'2013-01-01'`) dépend des paramètres régionaux du serveur/session. Selon la configuration (français vs anglais), T-SQL peut mal interpréter l'ordre jour/mois, provoquant soit une erreur de conversion, soit pire, une inversion silencieuse sans erreur visible.
+
+**Solution** : toujours utiliser le format `YYYYMMDD`, sans séparateurs — le seul format garanti sans ambiguïté, quels que soient les paramètres régionaux.
+
+```sql
+-- Risqué (dépend des paramètres régionaux)
+WHERE OrderDate BETWEEN '2013-01-01' AND '2013-12-31'
+
+-- Sûr (format universel)
+WHERE OrderDate BETWEEN '20130101' AND '20131231'
+```
+
+**Réflexe à avoir** : avant de filtrer sur une période précise, vérifier la plage de dates réelle d'une table plutôt que de supposer une année.
+
+```sql
+SELECT MIN(OrderDate) AS DatePlusAncienne, MAX(OrderDate) AS DatePlusRecente
+FROM Sales.SalesOrderHeader;
+```
+
+### JOIN ... USING → pas d'équivalent, toujours écrire ON complet
+
+MySQL permet de raccourcir une jointure quand les deux colonnes portent le même nom :
+```sql
+-- MySQL
+JOIN Sales.SalesOrderHeader USING (SalesOrderID)
+```
+
+T-SQL n'a pas d'équivalent à `USING`. Toujours écrire la forme complète :
+```sql
+-- T-SQL
+JOIN Sales.SalesOrderHeader soh ON sod.SalesOrderID = soh.SalesOrderID
+```
