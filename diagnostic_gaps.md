@@ -76,7 +76,7 @@ FROM Sales.SalesOrderHeader;
 <!-- #region J3 — Jointures et unions (cardinalités, doublons) -->
 
 <details>
-<summary>J3 — Jointures et unions (cardinalités, doublons)</summary>
+<summary><h2>J3 — Jointures et unions (cardinalités, doublons)</summary>
 
 ## Exercices
 
