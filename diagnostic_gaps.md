@@ -1,7 +1,7 @@
 # Diagnostic — Journal des blocages
 
 <details>
-<summary>J2 - Diagnostic SQL</summary>
+<summary><h2>J2 - Diagnostic SQL</summary>
 
 ## Exercices
 
