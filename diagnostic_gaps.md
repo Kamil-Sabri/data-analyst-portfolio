@@ -1,3 +1,8 @@
+# Diagnostic — Journal des blocages
+<details>
+<summary>
+
+## J2 - Diagnostic SQL
 ### Exercices
 
 Exercice 1 - SELECT + WHERE	
@@ -19,22 +24,22 @@ Haut : plus de 500
 Affiche ProductID, Name, ListPrice et la catégorie calculée.
 
 Exercice 5 — Filtre sur date
-Sur Sales.SalesOrderHeader, liste uniquement les commandes passées en 2013 (colonne OrderDate).
+Sur Sales.SalesOrderHeader, liste uniquement les commandes passées en 2023 (colonne OrderDate).
 
 Exercice 6 — Combinaison
 Chiffre d'affaires mensuel par catégorie de produit. Tables nécessaires : Sales.SalesOrderDetail, Production.Product, Production.ProductSubcategory ou ProductCategory (à explorer), Sales.SalesOrderHeader pour la date.
 
-## Requête 1 — SELECT + WHERE
+#### Requête 1 — SELECT + WHERE
 
 **Testée sans blocage.** Syntaxe identique à MySQL/BigQuery sur ce cas simple.
 
 **Résultat :** 368 lignes (produits avec ListPrice > 500).
 
-## Requête 4 — CASE WHEN
+#### Requête 4 — CASE WHEN
 
 **Point d'attention métier** : de nombreux produits ont ListPrice = 0 (composants internes non vendus directement — vis, roulements, plaques). Ils tombent dans la catégorie "Bas", ce qui est correct techniquement mais fausserait une analyse de pricing si on ne filtre pas ces lignes en amont.
 
-## Requête 5 — Filtre sur date
+#### Requête 5 — Filtre sur date
 
 **Blocage rencontré :** `WHERE OrderDate BETWEEN '2013-01-01' AND '2013-12-31'` a renvoyé une erreur :
 `Msg 242 - La conversion d'un type de données varchar en type de données datetime a créé une valeur hors limites.`
