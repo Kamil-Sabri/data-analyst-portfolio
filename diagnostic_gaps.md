@@ -1,5 +1,7 @@
 # Diagnostic — Journal des blocages
 
+<!-- #region J2 - Diagnostic SQL -->
+
 <details>
 <summary><h2>J2 - Diagnostic SQL</summary>
 
@@ -68,3 +70,39 @@ FROM Sales.SalesOrderHeader;
 **Règle à retenir :** toujours écrire les dates littérales au format `YYYYMMDD`, et vérifier la plage de dates réelle d'une table avant de filtrer sur une période précise plutôt que de supposer l'année.
 
 </details>
+
+<!-- #endregion -->
+
+<!-- #region J3 — Jointures et unions (cardinalités, doublons) -->
+
+<details>
+<summary>J3 — Jointures et unions (cardinalités, doublons)</summary>
+
+## Exercices
+
+Objectif : maîtriser le piège le plus fréquent des jointures — les doublons provoqués par une mauvaise cardinalité — que l'exercice 6 de J2 n'a pas encore testé directement.
+
+### Exercice 1 — INNER JOIN simple, vérifier le nombre de lignes
+
+Jointe Sales.SalesOrderHeader et Sales.Customer. Compte le nombre total de lignes obtenues, et compare-le au nombre de lignes de SalesOrderHeader seule. Les deux comptes doivent être identiques — si ce n'est pas le cas, la jointure duplique des lignes. Vérifie pourquoi.
+
+### Exercice 2 — LEFT JOIN et valeurs manquantes
+
+Jointe Production.Product et Sales.SalesOrderDetail en LEFT JOIN, pour lister tous les produits, y compris ceux jamais vendus. Compte combien de produits n'ont aucune vente associée (colonne de la table de droite = NULL).
+
+### Exercice 3 — Le piège des doublons volontaire
+
+Jointe Production.Product avec Production.ProductProductPhoto (une table où un même produit peut avoir plusieurs photos). Observe : le nombre de lignes du résultat dépasse-t-il le nombre de produits ? Explique pourquoi en une phrase.
+
+### Exercice 4 — UNION vs UNION ALL
+
+Écris une requête qui liste dans un même résultat :
+
+les Name des Production.Product
+les Name des Production.ProductCategory
+
+Teste d'abord avec UNION, puis avec UNION ALL. Si un nom de catégorie existe aussi comme nom de produit (improbable ici mais vérifie), quelle différence de résultat observes-tu entre les deux ?
+
+Consigne : comme pour J2, écris tes tentatives, note les résultats et blocages dans diagnostic_gaps.md, on corrige ensemble ensuite.
+
+<!-- #endregion -->
