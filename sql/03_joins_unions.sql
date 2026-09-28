@@ -22,24 +22,20 @@ WHERE SalesOrderID is NULL
 ## Exo 3
 -- Le nombre de ligne du résultat est identique au nombre de produits car nous avons une photo par produit.
 -- Etape 1 : Vérifier le nombre de ligne sur chaque table
-SELECT 
-	(
-	SELECT COUNT (ProductID)
-	FROM Production.Product) AS nb_produits_p,
-	COUNT (ProductID) AS nb_produits_ppp
+SELECT
+    (SELECT COUNT(*) FROM Production.Product) AS nb_produits_total,
+    (SELECT COUNT(*) FROM Production.ProductProductPhoto) AS nb_lignes_photos;
 
-FROM Production.ProductProductPhoto
+-- Les deux tables ont le même nombre de lignes
 
 -- Etape 2 : Vérifier s'il existe des doublons sur Product ID dans la table Production.ProductProductPhoto
 
-SELECT
-	ProductID,
-	COUNT(ProductID) 
-FROM Production.ProductProductPhoto
-GROUP BY ProductID
-HAVING COUNT(ProductID) > 1
+SELECT COUNT(*) AS Produits_sans_photo
+FROM Production.Product p
+LEFT JOIN Production.ProductProductPhoto ppp ON p.ProductID = ppp.ProductID
+WHERE ppp.ProductID IS NULL;
 
--- Aucune ProductID n'est doublé sur la table Production.ProductProductPhoto
+-- Aucun produit n'est égal à 0. Ils ont tous au moins une photo
 
 ## Exo 4
 
