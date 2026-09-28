@@ -124,3 +124,44 @@ RAS
 
 ### Exercice 4 — UNION vs UNION ALL
 Non traité — confusion initiale entre UNION (empiler des colonnes similaires de deux tables) et JOIN (relier des tables sur une clé commune). Correction apportée avant résolution.
+
+<!-- region - J4 — CTE, sous-requêtes et fonctions de date -->
+
+<details>
+<summary><h2>J4 — CTE, sous-requêtes et fonctions de date
+</summary>
+
+Objectif : décomposer une problématique métier complexe en plusieurs étapes lisibles, et maîtriser les fonctions de date T-SQL au-delà de YEAR().
+
+Action préalable : crée sql/04_cte_dates.sql dans VS Code.
+
+## Exercices
+
+### Exercice 1 — Sous-requête simple
+
+Trouve les produits dont le ListPrice est supérieur au prix moyen de tous les produits.
+
+### Exercice 2 — CTE basique
+
+Réécris l'exercice 1 en utilisant une CTE (WITH ... AS) plutôt qu'une sous-requête imbriquée. Compare la lisibilité des deux approches.
+
+### Exercice 3 — CTE à plusieurs étapes
+
+Calcule, pour chaque client, son chiffre d'affaires total (Sales.SalesOrderHeader, colonne TotalDue). Utilise une CTE pour isoler d'abord ce calcul, puis une seconde requête (ou un SELECT final) qui ne garde que les clients ayant dépensé plus de 10 000.
+
+### Exercice 4 — Fonctions de date au-delà de YEAR()
+
+Sur Sales.SalesOrderHeader, affiche pour chaque commande :
+
+l'année (YEAR)
+le mois (MONTH)
+le jour de la semaine sous forme de nom (lundi, mardi...)
+le nombre de jours entre OrderDate et ShipDate
+
+Indice sur le jour de la semaine : cherche la fonction DATENAME.
+
+### Exercice 5 — Sous-requête corrélée
+
+Trouve les clients dont au moins une commande dépasse 5000 de TotalDue. Cette fois, la sous-requête doit référencer une colonne de la requête externe (contrairement aux exercices 1-3 où la sous-requête était indépendante).
+
+<!-- #endregion -->
