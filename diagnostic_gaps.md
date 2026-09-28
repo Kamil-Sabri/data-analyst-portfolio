@@ -125,6 +125,9 @@ RAS
 ### Exercice 4 — UNION vs UNION ALL
 Non traité — confusion initiale entre UNION (empiler des colonnes similaires de deux tables) et JOIN (relier des tables sur une clé commune). Correction apportée avant résolution.
 
+<!-- #endregion -->
+
+
 <!-- region - J4 — CTE, sous-requêtes et fonctions de date -->
 
 <details>
