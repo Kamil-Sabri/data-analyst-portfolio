@@ -169,4 +169,54 @@ Indice sur le jour de la semaine : cherche la fonction DATENAME.
 
 Trouve les clients dont au moins une commande dépasse 5000 de TotalDue. Cette fois, la sous-requête doit référencer une colonne de la requête externe (contrairement aux exercices 1-3 où la sous-requête était indépendante).
 
+</details>
 <!-- #endregion -->
+
+<!-- #region - J5 - Window Function -->
+<details>
+<summary><h2>J5 - Window Function </summary>
+
+**Objectif** : maîtriser `ROW_NUMBER`, `RANK`, `LAG`, `LEAD` et `PARTITION BY` — les fonctions les plus demandées en entretien technique Data Analyst.
+
+**Action préalable** : crée `sql/05_window_functions.sql`.
+
+---
+
+**Concept de base avant de commencer**
+
+Une window function calcule une valeur **sans fusionner les lignes** (contrairement à `GROUP BY`, qui réduit plusieurs lignes en une seule). Elle ajoute une colonne de calcul tout en gardant chaque ligne individuelle visible.
+
+Syntaxe générale :
+```sql
+FONCTION() OVER (PARTITION BY colonne ORDER BY colonne)
+```
+- `PARTITION BY` = découpe les données en groupes (comme un GROUP BY, mais sans fusionner les lignes)
+- `ORDER BY` (à l'intérieur du OVER) = définit l'ordre dans lequel la fonction "avance" à travers chaque groupe
+
+---
+
+## Exercices
+
+### Exercice 1 — ROW_NUMBER
+
+Pour chaque client (`Sales.SalesOrderHeader`), numérote ses commandes par ordre chronologique (`OrderDate`) : 1 pour sa première commande, 2 pour la deuxième, etc.
+
+### Exercice 2 — RANK vs DENSE_RANK
+
+Classe les produits (`Production.Product`) par `ListPrice` décroissant, en affichant à la fois `RANK()` et `DENSE_RANK()`. Trouve un produit où les deux fonctions donnent un résultat différent, et explique pourquoi.
+
+### Exercice 3 — LAG
+
+Pour chaque client, affiche à côté de chaque commande la date de **sa commande précédente** (colonne calculée avec `LAG`). La toute première commande d'un client doit logiquement afficher NULL à cet endroit.
+
+### Exercice 4 — LEAD
+
+Même logique que l'exercice 3, mais affiche la date de la **commande suivante** avec `LEAD`.
+
+### Exercice 5 — PARTITION BY + agrégation
+
+Pour chaque commande, affiche le montant total (`TotalDue`) ET le total cumulé (`SUM(...) OVER`) des dépenses du client jusqu'à cette commande incluse, trié par date.
+
+---
+
+**Consigne inchangée** : une tentative à la fois, montre-moi ton code même incomplet.
