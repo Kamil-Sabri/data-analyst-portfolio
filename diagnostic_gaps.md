@@ -76,6 +76,7 @@ FROM Sales.SalesOrderHeader;
 <!-- #region J3 — Jointures et unions (cardinalités, doublons) -->
 
 <details>
+
 <summary><h2>J3 — Jointures et unions (cardinalités, doublons)</summary>
 
 ## Exercices
@@ -105,7 +106,6 @@ Teste d'abord avec UNION, puis avec UNION ALL. Si un nom de catégorie existe au
 
 Consigne : comme pour J2, écris tes tentatives, note les résultats et blocages dans diagnostic_gaps.md, on corrige ensemble ensuite.
 
-<!-- #endregion -->
 
 ## Réponses
 
@@ -128,7 +128,6 @@ Non traité — confusion initiale entre UNION (empiler des colonnes similaires 
 </details>
 
 <!-- #endregion -->
-
 
 <!-- region - J4 — CTE, sous-requêtes et fonctions de date -->
 
@@ -169,7 +168,56 @@ Indice sur le jour de la semaine : cherche la fonction DATENAME.
 
 Trouve les clients dont au moins une commande dépasse 5000 de TotalDue. Cette fois, la sous-requête doit référencer une colonne de la requête externe (contrairement aux exercices 1-3 où la sous-requête était indépendante).
 
+## Réponses
+
+-- ============================================
+-- J4 — CTE, sous-requêtes et fonctions de date
+-- ============================================
+
+## Exercice 1 — Sous-requête simple
+SELECT *
+FROM Production.Product
+WHERE ListPrice > 
+    (SELECT AVG(ListPrice)
+    FROM Production.Product);
+
+
+## Exercice 2 — CTE basique (même logique que l'exercice 1)
+WITH Prix_moyen(Moyenne) AS (
+    SELECT AVG(ListPrice)
+    FROM Production.Product
+)
+SELECT p.ProductID, p.Name, p.ListPrice
+FROM Production.Product p
+WHERE p.ListPrice > (SELECT Moyenne FROM Prix_moyen);
+
+
+## Exercice 3 — CTE à plusieurs étapes (clients ayant dépensé plus de 10 000)
+WITH Ventes_par_clients AS (
+    SELECT 
+        CustomerID,
+        SUM(TotalDue) AS Total
+    FROM Sales.SalesOrderHeader
+    GROUP BY CustomerID
+)
+SELECT CustomerID, Total
+FROM Ventes_par_clients
+WHERE Total > 10000
+ORDER BY Total DESC;
+
+
+## Exercice 5 — Sous-requête corrélée (clients avec au moins une commande > 5000)
+SELECT DISTINCT c.CustomerID
+FROM Sales.Customer c
+WHERE EXISTS (
+    SELECT 1
+    FROM Sales.SalesOrderHeader soh
+    WHERE soh.CustomerID = c.CustomerID
+    AND soh.TotalDue > 5000
+);
+
 </details>
+
 <!-- #endregion -->
 
 <!-- #region - J5 - Window Function -->
