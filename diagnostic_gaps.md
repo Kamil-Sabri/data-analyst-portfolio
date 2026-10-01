@@ -129,7 +129,7 @@ Non traité — confusion initiale entre UNION (empiler des colonnes similaires 
 
 <!-- #endregion -->
 
-<!-- region - J4 — CTE, sous-requêtes et fonctions de date -->
+<!-- #region - J4 — CTE, sous-requêtes et fonctions de date -->
 
 <details>
 <summary><h2>J4 — CTE, sous-requêtes et fonctions de date
@@ -222,7 +222,7 @@ WHERE EXISTS (
 
 <!-- #region - J5 - Window Function -->
 <details>
-<summary><h2>J5 - Window Function </summary>
+<summary><h2>J5 - Window Function </h2></summary>
 
 **Objectif** : maîtriser `ROW_NUMBER`, `RANK`, `LAG`, `LEAD` et `PARTITION BY` — les fonctions les plus demandées en entretien technique Data Analyst.
 
@@ -268,3 +268,86 @@ Pour chaque commande, affiche le montant total (`TotalDue`) ET le total cumulé 
 ---
 
 **Consigne inchangée** : une tentative à la fois, montre-moi ton code même incomplet.
+
+## Réponses
+
+### Exo 1
+
+SELECT 
+	CustomerID,
+	OrderDate,
+	ROW_NUMBER () OVER (PARTITION BY CustomerID ORDER BY OrderDate ASC) AS num_commande
+FROM Sales.SalesOrderHeader
+
+### Exo 2
+
+WITH Ranking AS (
+	SELECT 
+		ProductID,
+		Name,
+		RANK() OVER (ORDER BY ListPrice ASC) AS Rang,
+		DENSE_RANK() OVER (ORDER BY ListPrice ASC) AS RangDense
+	FROM Production.Product
+	)
+SELECT *
+FROM Ranking
+WHERE Rang <> RangDense 
+
+### Exo 3
+
+SELECT
+	CustomerID,
+	SalesOrderID,
+	OrderDate,
+	LAG(OrderDate,1) OVER (PARTITION BY CustomerID ORDER BY OrderDate ASC) AS Date_commande_prec
+FROM Sales.SalesOrderHeader;
+
+-- Déclinaison exo : Afficher sur chaque ligne combien de jours en moyenne met le CustomerID pour commander 
+
+WITH Historique AS (
+    SELECT
+        CustomerID,
+        SalesOrderID,
+        OrderDate,
+        LAG(OrderDate, 1) OVER (PARTITION BY CustomerID ORDER BY OrderDate ASC) AS Date_commande_prec
+    FROM Sales.SalesOrderHeader
+),
+Ecarts AS (
+    SELECT
+        CustomerID,
+        SalesOrderID,
+        OrderDate,
+        Date_commande_prec,
+        DATEDIFF(day, Date_commande_prec, OrderDate) AS Ecart_jours
+    FROM Historique
+)
+SELECT
+    CustomerID,
+    SalesOrderID,
+    OrderDate,
+    Date_commande_prec,
+    AVG(Ecart_jours) OVER (PARTITION BY CustomerID) AS Moyenne_jours_entre_achats
+FROM Ecarts;
+
+### Exo 4
+SELECT
+	CustomerID,
+	SalesOrderID,
+	OrderDate,
+	LEAD(OrderDate,1) OVER (PARTITION BY CustomerID ORDER BY OrderDate ASC) AS Date_commande_suivante
+FROM Sales.SalesOrderHeader;
+
+### Exo 5 
+
+SELECT
+	CustomerID,
+	SalesOrderID,
+	OrderDate,
+	ROUND(TotalDue,2) AS Montant_commande,
+	ROUND(
+		SUM (TotalDue) OVER (PARTITION BY CustomerID ORDER BY OrderDate ASC),
+		2) AS Montant_cumul_commande
+	
+FROM Sales.SalesOrderHeader;
+
+<!-- #endregion -->
