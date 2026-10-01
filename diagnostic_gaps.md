@@ -351,3 +351,58 @@ SELECT
 FROM Sales.SalesOrderHeader;
 
 <!-- #endregion -->
+
+<--! #region - J6 — T-SQL pro + test chronométré -- >
+
+<details>
+
+<summary> <h2> J6 — T-SQL pro + test chronométré </h2> </summary>
+
+Dernier jour de S1. Deux parties : consolidation technique (vues, tables temporaires, plans d'exécution), puis test chronométré pour valider le niveau atteint sur la semaine.
+
+Action préalable : crée sql/06_test_chronometre.sql.
+
+# Partie 1 — Vues, tables temporaires, plans d'exécution (1h)
+
+## Exercices
+
+### Exercice 1 — Vue
+
+Crée une vue vw_VentesParClient qui expose, pour chaque client, son CustomerID et le total de ses commandes (SUM(TotalDue)). Une fois créée, interroge-la comme une table normale.
+
+sql
+CREATE VIEW vw_VentesParClient AS
+SELECT ...
+
+### Exercice 2 — Table temporaire
+
+Crée une table temporaire #VentesTop10 contenant les 10 clients ayant le plus dépensé (réutilise ta logique de J4). Interroge-la ensuite.
+
+Indice : une table temporaire se crée avec #NomTable et SELECT ... INTO #NomTable FROM ....
+
+### Exercice 3 — Plan d'exécution
+
+Active l'affichage du plan d'exécution dans SSMS (Ctrl+M avant de lancer une requête, ou bouton "Include Actual Execution Plan"). Lance une requête avec jointure (reprends celle de J2, exercice 6 — CA par catégorie). Observe le plan généré : repère si un "Table Scan" (lecture complète, coûteux) ou un "Index Seek" (lecture ciblée, rapide) apparaît sur les tables principales.
+
+## Partie 2 — Test chronométré (2h, sans aide extérieure)
+
+Règle : chronomètre-toi, résous seul, sans revenir sur tes fichiers précédents ni demander d'aide. Note ton temps total. Une fois terminé, montre-moi tes réponses pour correction — on comparera ensuite avec ce qu'une IA aurait produit, comme prévu dans la méthode du programme.
+
+###  Questions (10) :
+
+Liste les produits dont le prix est inférieur à la moyenne de leur sous-catégorie.
+Pour chaque commande, affiche le nombre de jours écoulés depuis la commande précédente du même client (sans LAG cette fois — utilise une jointure sur une sous-requête).
+Trouve les 5 produits les plus vendus en quantité totale (Sales.SalesOrderDetail).
+Liste les clients n'ayant jamais passé de commande supérieure à 1000.
+Affiche, pour chaque catégorie de produit, le produit le plus cher.
+Calcule le taux de produits sans aucune vente, en pourcentage du total de produits.
+Trouve les commandes passées un week-end (samedi ou dimanche).
+Pour chaque client, calcule le nombre de jours entre sa première et sa dernière commande.
+Liste les produits vendus dans plus de 3 catégories de commandes différentes (SalesOrderID distincts).
+Affiche le classement (RANK) des clients par montant total dépensé, sans utiliser de CTE.
+
+Lance-toi sur la Partie 1 d'abord, montre-moi tes résultats, puis on attaque le test chronométré.
+
+</details>
+
+<!-- #endregion -->
