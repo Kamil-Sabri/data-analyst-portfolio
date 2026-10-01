@@ -350,13 +350,13 @@ SELECT
 	
 FROM Sales.SalesOrderHeader;
 
+</details>
+
 <!-- #endregion -->
 
-<--! #region - J6 — T-SQL pro + test chronométré -- >
-
+<!-- #region - J6 — T-SQL pro + test chronométré -->
 <details>
-
-<summary> <h2> J6 — T-SQL pro + test chronométré </h2> </summary>
+<summary><h2>J6 — T-SQL pro + test chronométré</h2></summary>
 
 Dernier jour de S1. Deux parties : consolidation technique (vues, tables temporaires, plans d'exécution), puis test chronométré pour valider le niveau atteint sur la semaine.
 
