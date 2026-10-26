@@ -404,3 +404,25 @@ Lance-toi sur la Partie 1 d'abord, montre-moi tes résultats, puis on attaque le
 </details>
 
 <!-- #endregion -->
+
+<!-- #region - J7 Types de données Python -->
+<details>
+<summary><h2>J7 Types de données Python</h2></summary>
+
+### Exercice 1 — Types de base
+Déclare une variable de chaque type : int, float, str, bool. Utilise type() pour vérifier chacune.
+
+### Exercice 2 — Conversion de types
+Pars de la chaîne "42". Convertis-la en int, puis en float. Teste ce qui se passe si tu essaies de convertir "quarante-deux" en int — observe l’erreur obtenue.
+
+### Exercice 3 — Listes vs Tuples
+Crée une liste [1, 2, 3] et un tuple (1, 2, 3). Essaie de modifier le premier élément de chacun. Explique en une phrase la différence de comportement observée.
+
+### Exercice 4 — Dictionnaires
+Crée un dictionnaire représentant un produit : nom, prix, categorie. Affiche uniquement le prix. Ajoute une nouvelle clé stock avec une valeur de ton choix.
+
+### Exercice 5 — Sets (ensembles)
+Crée deux listes de clients avec des doublons et des éléments communs. Convertis-les en set, puis trouve : les éléments communs aux deux, les éléments uniquement dans la première.
+
+### Exercice 6 — Mutabilité
+Crée une liste a = [1, 2, 3], puis b = a. Modifie b en ajoutant un élément. Affiche a. Explique ce qui s’est passé — et comment l’éviter si tu voulais une vraie copie indépendante.
