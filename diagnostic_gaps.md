@@ -362,9 +362,7 @@ Dernier jour de S1. Deux parties : consolidation technique (vues, tables tempora
 
 Action préalable : crée sql/06_test_chronometre.sql.
 
-# Partie 1 — Vues, tables temporaires, plans d'exécution (1h)
-
-## Exercices
+## Partie 1 — Vues, tables temporaires, plans d'exécution (1h)
 
 ### Exercice 1 — Vue
 
