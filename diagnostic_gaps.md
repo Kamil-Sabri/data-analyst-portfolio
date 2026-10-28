@@ -405,7 +405,7 @@ Lance-toi sur la Partie 1 d'abord, montre-moi tes résultats, puis on attaque le
 
 <!-- #endregion -->
 
-<!-- #region - J7 Types de données Python -->
+<!-- region - J7 Types de données Python -->
 <details>
 <summary><h2>J7 Types de données Python</h2></summary>
 
@@ -426,3 +426,33 @@ Crée deux listes de clients avec des doublons et des éléments communs. Conver
 
 ### Exercice 6 — Mutabilité
 Crée une liste a = [1, 2, 3], puis b = a. Modifie b en ajoutant un élément. Affiche a. Explique ce qui s’est passé — et comment l’éviter si tu voulais une vraie copie indépendante.
+
+</details>
+
+<!-- #endregion -->
+
+<!-- region - J8 - Pandas fondamental -->
+<details>
+<summary><h2>J8 - Pandas fondamental</h2></summary>
+
+### Exercice 1 — Créer un DataFrame
+Crée un DataFrame à partir d’un dictionnaire représentant 5 produits (nom, prix, categorie, stock). Affiche-le, puis affiche ses dimensions (.shape) et ses types de colonnes (.dtypes).
+
+### Exercice 2 — Sélection de colonnes
+À partir de ton DataFrame, affiche uniquement la colonne prix, puis affiche nom et prix ensemble (deux colonnes).
+
+### Exercice 3 — Sélection par position : iloc
+Affiche la 1ère ligne du DataFrame avec iloc. Affiche les 3 premières lignes.
+
+### Exercice 4 — Sélection par label : loc
+Affiche la ligne dont l’index vaut 2 avec loc. Affiche uniquement la colonne prix pour cette même ligne.
+
+### Exercice 5 — Filtrage conditionnel
+Affiche uniquement les produits dont le prix dépasse une valeur de ton choix (équivalent du WHERE en SQL).
+
+### Exercice 6 — Tri
+Trie le DataFrame par prix décroissant avec .sort_values().
+
+</details>
+
+<!-- #endregion -->
