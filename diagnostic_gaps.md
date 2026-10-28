@@ -482,3 +482,29 @@ Utilise .describe() pour repérer une valeur de stock anormalement élevée par 
 </details>
 
 <!-- #endregion -->
+
+<!-- #region - J10 — Manipulation avancée -->
+<details>
+<summary><h2> J10 — Manipulation avancée</h2></summary>
+
+### Exercice 1 — merge (équivalent de ton JOIN SQL)
+Fusionne ventes et produits sur produit_id, pour obtenir un DataFrame avec le nom et le prix à côté de chaque vente.
+
+### Exercice 2 — groupby + agg (équivalent de ton GROUP BY + agrégation SQL)
+Sur le DataFrame fusionné, calcule la quantité totale vendue par produit (nom).
+
+### Exercice 3 — groupby avec plusieurs agrégations
+Même groupement par produit, mais calcule en même temps : la quantité totale vendue ET le nombre de ventes distinctes (lignes).
+
+### Exercice 4 — Colonne calculée + groupby
+Crée une colonne chiffre_affaires = quantite * prix. Calcule ensuite le CA total par produit.
+
+### Exercice 5 — pivot
+Extrait le mois de chaque vente (pd.to_datetime + .dt.month, vu en J9). Construis un tableau croisé : lignes = produit, colonnes = mois, valeurs = quantité totale vendue.
+
+### Exercice 6 — melt (opération inverse de pivot)
+Reprends le résultat pivoté de l’exercice 5, et repasse-le au format “long” (une ligne par produit/mois/valeur) avec melt().
+
+</details>
+
+<!-- #endregion -->
