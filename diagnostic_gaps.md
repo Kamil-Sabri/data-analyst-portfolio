@@ -456,3 +456,29 @@ Trie le DataFrame par prix décroissant avec .sort_values().
 </details>
 
 <!-- #endregion -->
+
+<!-- #region - J9 — Data cleaning -->
+<details>
+<summary><h2>J9 — Data cleaning</h2></summary>
+
+### Exercice 1 — Détecter les valeurs manquantes
+Affiche le nombre de valeurs manquantes (NaN/None) par colonne.
+
+### Exercice 2 — Traiter les valeurs manquantes
+Supprime les lignes contenant au moins une valeur manquante. Dans une seconde version, au lieu de supprimer, remplace les NaN de la colonne prix par la moyenne de la colonne.
+
+### Exercice 3 — Doublons
+Détecte les lignes dupliquées. Supprime-les, en gardant la première occurrence.
+
+### Exercice 4 — Nettoyage de texte
+La colonne nom et categorie contiennent des espaces superflus et des casses incohérentes ("Voiture" vs "voiture"). Nettoie-les : supprime les espaces, uniformise la casse.
+
+### Exercice 5 — Conversion de dates
+Convertis date_achat (actuellement du texte) en vraie date Pandas. Affiche ensuite le mois de chaque achat.
+
+### Exercice 6 — Outliers
+Utilise .describe() pour repérer une valeur de stock anormalement élevée par rapport aux autres. Filtre pour l’isoler.
+
+</details>
+
+<!-- #endregion -->
