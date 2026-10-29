@@ -508,3 +508,41 @@ Reprends le résultat pivoté de l’exercice 5, et repasse-le au format “long
 </details>
 
 <!-- #endregion -->
+
+<!-- #region - J10 bis — Traduction des 10 requêtes SQL (J6) en Pandas -->
+<details>
+<summary><h2>J10 — Traduction des 10 requêtes SQL (J6) en Pandas</h2></summary>
+
+### Exercice 1 — Produits ListPrice > 1000, triés décroissant
+SQL : SELECT * FROM Production.product WHERE ListPrice > 1000 ORDER BY ListPrice DESC
+
+### Exercice 2 — Clients avec plus de 3 commandes
+SQL : SELECT CustomerID, COUNT(SalesOrderID) FROM Sales.SalesOrderHeader GROUP BY CustomerID HAVING COUNT(SalesOrderID) > 3
+
+### Exercice 3 — Quantité totale vendue par produit, triée décroissant
+SQL : jointure SalesOrderDetail + Product, SUM(OrderQty), GROUP BY, ORDER BY DESC
+
+### Exercice 4 — Clients n'ayant jamais passé de commande
+SQL : LEFT JOIN Customer + SalesOrderHeader, WHERE SalesOrderID IS NULL
+
+### Exercice 5 — Rang chronologique des commandes par client
+SQL : ROW_NUMBER() OVER (PARTITION BY CustomerID ORDER BY OrderDate)
+
+### Exercice 6 — CA total par catégorie, HAVING > 1 000 000
+SQL : jointures Category > Subcategory > Product > SalesOrderDetail, SUM(LineTotal), GROUP BY, HAVING
+
+### Exercice 7 — Jours écoulés depuis la commande précédente (par client)
+SQL : LAG(OrderDate) OVER (PARTITION BY CustomerID ORDER BY OrderDate) + DATEDIFF
+
+### Exercice 8 — Top 5 produits les plus chers par catégorie
+SQL : RANK() OVER (PARTITION BY ProductCategoryID ORDER BY prix DESC), WHERE rang <= 5
+
+### Exercice 9 — Top 5 clients par nombre de commandes
+SQL : SELECT TOP 5 CustomerID, COUNT(SalesOrderID) ... GROUP BY ... ORDER BY DESC
+
+### Exercice 10 — Nombre de commandes par mois/année
+SQL : DATENAME(month, OrderDate), YEAR(OrderDate), GROUP BY, ORDER BY chronologique
+
+</details>
+
+<!-- #endregion -->
