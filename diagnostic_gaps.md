@@ -485,7 +485,7 @@ Utilise .describe() pour repérer une valeur de stock anormalement élevée par 
 
 <!-- #region - J10 — Manipulation avancée -->
 <details>
-<summary><h2> J10 — Manipulation avancée</h2></summary>
+<summary><h2> J10 bis — Manipulation avancée</h2></summary>
 
 ### Exercice 1 — merge (équivalent de ton JOIN SQL)
 Fusionne ventes et produits sur produit_id, pour obtenir un DataFrame avec le nom et le prix à côté de chaque vente.
