@@ -485,7 +485,7 @@ Utilise .describe() pour repérer une valeur de stock anormalement élevée par 
 
 <!-- #region - J10 — Manipulation avancée -->
 <details>
-<summary><h2> J10 bis — Manipulation avancée</h2></summary>
+<summary><h2> J10 — Manipulation avancée</h2></summary>
 
 ### Exercice 1 — merge (équivalent de ton JOIN SQL)
 Fusionne ventes et produits sur produit_id, pour obtenir un DataFrame avec le nom et le prix à côté de chaque vente.
@@ -511,7 +511,7 @@ Reprends le résultat pivoté de l’exercice 5, et repasse-le au format “long
 
 <!-- #region - J10 bis — Traduction des 10 requêtes SQL (J6) en Pandas -->
 <details>
-<summary><h2>J10 — Traduction des 10 requêtes SQL (J6) en Pandas</h2></summary>
+<summary><h2>J10 bis — Traduction des 10 requêtes SQL (J6) en Pandas</h2></summary>
 
 ### Exercice 1 — Produits ListPrice > 1000, triés décroissant
 SQL : SELECT * FROM Production.product WHERE ListPrice > 1000 ORDER BY ListPrice DESC
