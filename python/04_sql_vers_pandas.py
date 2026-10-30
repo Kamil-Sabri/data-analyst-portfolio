@@ -1,5 +1,3 @@
-<summary><h2>import pandas as pd</h2></summary>
-
 import pandas as pd
 
 product = pd.read_csv("data/Product.csv")
@@ -8,16 +6,16 @@ category = pd.read_csv("data/ProductCategory.csv")
 header = pd.read_csv("data/SalesOrderHeader.csv")
 detail = pd.read_csv("data/SalesOrderDetail.csv")
 
-<summary><h2>Exo 1</h2></summary>
+# EXO 1
 product.loc[product["ListPrice"] > 1000].sort_values(by="ListPrice", ascending = False)
 
-<summary><h2>Exo 2</h2></summary>
+# EXO 2
 print(header.columns) #pour checker toutes les colonnes du Dataframe
 
 df = header.groupby("CustomerID")["SalesOrderID"].count()
 df[df > 3]
 
-<summary><h2>Exo 3</h2></summary>
+# EXO 3
 ## Part 1 : Création de la table ventes en fusionnant detail et product sur la colonne ProductID.
 ventes=pd.merge(detail,product, on="ProductID") #Utiliser obligatoirement le pd. avant merge() pour que ça fonctionne.
 ### Autre possibilité : 
@@ -26,18 +24,18 @@ ventes = detail.merge(product, on ="ProductID")
 ## Part 2
 ventes.groupby("Name")["OrderQty"].sum().sort_values(ascending=False) 
 
-<summary><h2>Exo 4</h2></summary>
+# EXO 4
 customer_sales[customer_sales["SalesOrderID"].isna()]
 ### La partie intérieure généère les true/false, et la partie extérieure filtre le résultat
 
-<summary><h2>Exo 5</h2></summary>
+# EXO 5
 
 header_trie = header.sort_values(["CustomerID", "OrderDate"]) #etape 1 : trier le dataframe par CustomerID puis par OrderDate
 header_trie["classement"] = header_trie.groupby("CustomerID").cumcount() + 1 #etape 2 : création du classement par CustomerID, en ajoutant 1 pour que le classement commence à 1 et non 0
 
 header_trie[["classement","OrderDate","CustomerID"]] #etape 3 : affichage des colonnes classement, OrderDate et CustomerID pour vérifier que le classement est correct.
 
-<summary><h2>Exo 6</h2></summary>
+# EXO 6
 
 ## Etape 1 : Checker d'abord l'ensemble des colonnes (nomdetable.columns) pour identifier les colonnes à utiliser pour le merge.
 
@@ -61,7 +59,7 @@ df_produit_detail = produit_detail.groupby("Name")[["LineTotal", "PrixHT"]].sum(
 ventes_par_produit = df_produit_detail[df_produit_detail["LineTotal"] > 1000000]
 # Explication : [["LineTotal", "PrixHT"]] avec double crochet (liste de colonnes) force pandas à renvoyer un DataFrame, même si une seule colonne était sélectionnée — alors que ["LineTotal"] avec simple crochet (un seul nom) renvoie une Series. C’est ce choix de syntaxe, pas le groupby lui-même, qui détermine si tu dois ensuite référencer df["LineTotal"] ou filtrer directement sur df.
 
-<summary><h2>Exo 7</h2></summary>
+# EXO 7
 
 #Etape 1 : Créer un DF avec colonnes CustomerID et OrderDate
 orders = header.sort_values(["CustomerID","OrderDate"]) #le tri du plus ancien au plus récent se fait automatiquement ici. Dans le cas contraire il aurait fallu écrire le script suivant orders = header.sort_values(["CustomerID","OrderDate"],ascending=[True,False])
@@ -75,7 +73,7 @@ orders["days"] = (orders["OrderDate"] - orders["lag"]).dt.days #soustraction d'a
 #Etape 4 : Créer un DF avec les colonnes CustomerID,OrderDate,lag et days
 orders [["CustomerID","OrderDate","lag","days"]] 
 
-<summary><h2>Exo 8</h2></summary>
+# EXO 8
 
 #Etape 1 : Créer un DF avec colonnes ProductCategoryID et LineTotal trié par ProductCategoryID et LineTotal (du plus grand au plus petit)
 prod_cat = produit_detail[["ProductCategoryID","LineTotal"]].copy().sort_values(["ProductCategoryID","LineTotal"],ascending=[True, False])
@@ -90,7 +88,7 @@ prod_cat["rank"] = prod_cat.groupby("ProductCategoryID")["LineTotal"].rank(metho
 #Etape 3 : Top 5 des produits par catégorie de produit
 prod_cat[prod_cat["rank"]<=5]
 
-<summary><h2>Exo 9</h2></summary>
+# EXO 9
 
 #Etape 1 : créer un DF avec colonnes CustomerID et SalesOrderID
 cmd = header.groupby("CustomerID")["SalesOrderID"].count().reset_index(name="nb_cmd")
@@ -105,7 +103,7 @@ commandes = cmd[["rank","CustomerID","nb_cmd"]].sort_values("nb_cmd",ascending =
 #Etape 4 : Top 5 des clients par nombre de commandes (du plus grand au plus petit)
 commandes.head(5)
 
-<summary><h2>Exo 10</h2></summary>
+# EXO 10
 
 #Etape 1 : Créer les colonnes dans le DF initial
 header["m_name"] = header["OrderDate"].dt.month_name()
