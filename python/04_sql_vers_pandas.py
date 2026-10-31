@@ -59,6 +59,17 @@ df_produit_detail = produit_detail.groupby("Name")[["LineTotal", "PrixHT"]].sum(
 ventes_par_produit = df_produit_detail[df_produit_detail["LineTotal"] > 1000000]
 # Explication : [["LineTotal", "PrixHT"]] avec double crochet (liste de colonnes) force pandas à renvoyer un DataFrame, même si une seule colonne était sélectionnée — alors que ["LineTotal"] avec simple crochet (un seul nom) renvoie une Series. C’est ce choix de syntaxe, pas le groupby lui-même, qui détermine si tu dois ensuite référencer df["LineTotal"] ou filtrer directement sur df.
 
+#Alternative plus courte : 
+df_ca_categorie = (
+    detail[["ProductID", "LineTotal"]]
+    .merge(product[["ProductID", "ProductSubcategoryID"]], on="ProductID")
+    .merge(subcategory[["ProductSubcategoryID", "ProductCategoryID"]], on="ProductSubcategoryID")
+    .merge(category[["ProductCategoryID", "Name"]], on="ProductCategoryID")
+    .groupby("Name")["LineTotal"].sum()
+)
+
+df_ca_categorie[df_ca_categorie > 1_000_000]
+
 # EXO 7
 
 #Etape 1 : Créer un DF avec colonnes CustomerID et OrderDate
@@ -72,6 +83,13 @@ orders["days"] = (orders["OrderDate"] - orders["lag"]).dt.days #soustraction d'a
 
 #Etape 4 : Créer un DF avec les colonnes CustomerID,OrderDate,lag et days
 orders [["CustomerID","OrderDate","lag","days"]] 
+
+#Alternative s'il est juste demandé de fournir le nombre de jours entre deux commandes pour chaque client
+orders = header.sort_values(["CustomerID","OrderDate"])
+orders["days"] = orders.groupby("CustomerID")["OrderDate"].diff().dt.days
+orders[["CustomerID","OrderDate","days"]]
+
+    #diff() fait exactement shift(1) puis soustraction en interne — plus besoin de créer la colonne lag séparément ni de l’étape 3 manuelle.
 
 # EXO 8
 
