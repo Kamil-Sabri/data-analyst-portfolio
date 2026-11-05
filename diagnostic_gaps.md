@@ -509,9 +509,9 @@ Reprends le résultat pivoté de l’exercice 5, et repasse-le au format “long
 
 <!-- #endregion -->
 
-<!-- #region - J10 bis — Traduction des 10 requêtes SQL (J6) en Pandas -->
+<!-- #region - J11 — Traduction des 10 requêtes SQL (J6) en Pandas -->
 <details>
-<summary><h2>J10 bis — Traduction des 10 requêtes SQL (J6) en Pandas</h2></summary>
+<summary><h2>J11 — Traduction des 10 requêtes SQL (J6) en Pandas</h2></summary>
 
 ### Exercice 1 — Produits ListPrice > 1000, triés décroissant
 SQL : SELECT * FROM Production.product WHERE ListPrice > 1000 ORDER BY ListPrice DESC
@@ -542,6 +542,16 @@ SQL : SELECT TOP 5 CustomerID, COUNT(SalesOrderID) ... GROUP BY ... ORDER BY DES
 
 ### Exercice 10 — Nombre de commandes par mois/année
 SQL : DATENAME(month, OrderDate), YEAR(OrderDate), GROUP BY, ORDER BY chronologique
+
+</details>
+
+<!-- #endregion -->
+
+<!-- #region - J14 — Cas pratique cohortes -->
+<details>
+<summary><h2>J14 — Cas pratique cohortes</h2></summary>
+
+checker directement le fichier python/06_cas_pratique_cohortes
 
 </details>
 
