@@ -556,3 +556,36 @@ checker directement le fichier python/06_cas_pratique_cohortes
 </details>
 
 <!-- #endregion -->
+
+<!-- #region - J15 -- Analyse Temporelle -->
+<details>
+<summary><h2><J15 — Analyses temporelles></h2></summary>
+
+Ce qui est attendu — J15
+
+Objectif : construire 6 requêtes SQL de référence sur AdventureWorks, démontrant la maîtrise des fonctions fenêtre temporelles (MoM, YoY, moyennes mobiles, cumuls).
+Livrable : sql/06_temporel.sql, les 6 requêtes commentées.
+Table principale : SalesOrderHeader (déjà utilisée aux exercices précédents) — colonnes OrderDate, TotalDue (ou SubTotal selon ce que tu veux mesurer comme CA).
+
+Rappel des méthodes
+
+Fonctions fenêtre (OVER) : ne réduisent pas le nombre de lignes, contrairement à GROUP BY. Indispensables ici car on compare chaque période à une autre, sans perdre le détail.
+LAG(valeur, n) : récupère la valeur n périodes avant la ligne courante — base du MoM (n=1) et du YoY (n=12, si la série est mensuelle et sans trou).
+PARTITION BY : redémarre un calcul par groupe (utile pour un cumul remis à zéro chaque année).
+AVG() OVER (... ROWS BETWEEN x PRECEDING AND CURRENT ROW) : moyenne mobile sur une fenêtre glissante de x+1 lignes.
+SUM() OVER (ORDER BY ...) : cumul progressif (running total), sans PARTITION BY pour un cumul global, avec pour un cumul qui repart à zéro.
+NULLIF(x, 0) : à garder en tête pour éviter une division par zéro lors du calcul d’un taux de variation (%).
+
+Énoncé — les 6 requêtes
+
+CA mensuel, avec la variation en % par rapport au mois précédent (MoM).
+CA mensuel, avec la variation en % par rapport au même mois l’année précédente (YoY).
+Moyenne mobile sur 3 mois du CA mensuel.
+Moyenne mobile sur 12 mois du CA mensuel (tendance lissée annualisée).
+Cumul du CA depuis le 1er janvier de chaque année (remise à zéro annuelle).
+Cumul du CA depuis le début des données, sans remise à zéro.
+
+</details>
+
+<!-- #endregion -->
+
