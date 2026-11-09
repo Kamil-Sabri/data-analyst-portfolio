@@ -569,12 +569,17 @@ Table principale : SalesOrderHeader (déjà utilisée aux exercices précédents
 
 Rappel des méthodes
 
-Fonctions fenêtre (OVER) : ne réduisent pas le nombre de lignes, contrairement à GROUP BY. Indispensables ici car on compare chaque période à une autre, sans perdre le détail.
-LAG(valeur, n) : récupère la valeur n périodes avant la ligne courante — base du MoM (n=1) et du YoY (n=12, si la série est mensuelle et sans trou).
-PARTITION BY : redémarre un calcul par groupe (utile pour un cumul remis à zéro chaque année).
-AVG() OVER (... ROWS BETWEEN x PRECEDING AND CURRENT ROW) : moyenne mobile sur une fenêtre glissante de x+1 lignes.
-SUM() OVER (ORDER BY ...) : cumul progressif (running total), sans PARTITION BY pour un cumul global, avec pour un cumul qui repart à zéro.
-NULLIF(x, 0) : à garder en tête pour éviter une division par zéro lors du calcul d’un taux de variation (%).
+- Fonctions fenêtre (OVER) : ne réduisent pas le nombre de lignes, contrairement à GROUP BY. Indispensables ici car on compare chaque période à une autre, sans perdre le détail.
+
+- LAG(valeur, n) : récupère la valeur n périodes avant la ligne courante — base du MoM (n=1) et du YoY (n=12, si la série est mensuelle et sans trou).
+
+- PARTITION BY : redémarre un calcul par groupe (utile pour un cumul remis à zéro chaque année).
+
+- AVG() OVER (... ROWS BETWEEN x PRECEDING AND CURRENT ROW) : moyenne mobile sur une fenêtre glissante de x+1 lignes.
+
+- SUM() OVER (ORDER BY ...) : cumul progressif (running total), sans PARTITION BY pour un cumul global, avec pour un cumul qui repart à zéro.
+
+ - NULLIF(x, 0) : à garder en tête pour éviter une division par zéro lors du calcul d’un taux de variation (%).
 
 Énoncé — les 6 requêtes
 
