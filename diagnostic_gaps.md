@@ -578,12 +578,17 @@ NULLIF(x, 0) : à garder en tête pour éviter une division par zéro lors du ca
 
 Énoncé — les 6 requêtes
 
-CA mensuel, avec la variation en % par rapport au mois précédent (MoM).
-CA mensuel, avec la variation en % par rapport au même mois l’année précédente (YoY).
-Moyenne mobile sur 3 mois du CA mensuel.
-Moyenne mobile sur 12 mois du CA mensuel (tendance lissée annualisée).
-Cumul du CA depuis le 1er janvier de chaque année (remise à zéro annuelle).
-Cumul du CA depuis le début des données, sans remise à zéro.
+1/ CA mensuel, avec la variation en % par rapport au mois précédent (MoM).
+
+2/ CA mensuel, avec la variation en % par rapport au même mois l’année précédente (YoY).
+
+3/ Moyenne mobile sur 3 mois du CA mensuel.
+
+4/ Moyenne mobile sur 12 mois du CA mensuel (tendance lissée annualisée).
+
+5/ Cumul du CA depuis le 1er janvier de chaque année (remise à zéro annuelle).
+
+6/ Cumul du CA depuis le début des données, sans remise à zéro.
 
 </details>
 
