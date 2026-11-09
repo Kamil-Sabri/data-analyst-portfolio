@@ -557,9 +557,9 @@ checker directement le fichier python/06_cas_pratique_cohortes
 
 <!-- #endregion -->
 
-<!-- #region - J15 -- Analyse Temporelle -->
+<!-- #region - J15 — Analyse Temporelle -->
 <details>
-<summary><h2><J15 — Analyses temporelles></h2></summary>
+<summary><h2>J15 — Analyses temporelles</h2></summary>
 
 Ce qui est attendu — J15
 
