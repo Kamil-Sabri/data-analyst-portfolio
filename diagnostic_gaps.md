@@ -599,3 +599,32 @@ Rappel des méthodes
 
 <!-- #endregion -->
 
+<!-- #region - J16 — Funnel -->
+<details>
+<summary><h2>J16 — Funnel </h2></summary>
+
+Ce qui est attendu
+
+Un funnel mesure, étape par étape, combien d’entités (utilisateurs, commandes) passent à l’étape suivante, et où se situe la plus grosse perte. En BI, c’est l’outil de base pour diagnostiquer un problème de conversion (ex. “70% des paniers ne sont jamais payés” → où agir en priorité).
+
+Limite à anticiper : AdventureWorks ne trace ni les visites, ni les paniers abandonnés (pas de données web/session). Le funnel “visite → panier → commande → paiement” de l’énoncé Notion ne peut donc pas être reproduit tel quel sur cette base — il faut l’adapter aux étapes réellement traçables dans Sales.SalesOrderHeader.
+
+Rappel méthode
+
+Comptage conditionnel par étape : COUNT(CASE WHEN condition THEN 1 END) ou plusieurs SUM(CASE WHEN ...) dans un seul SELECT
+Taux de passage étape N → N+1 : étape_N+1 / étape_N
+Déperdition : 1 - taux_de_passage, ou étape_N - étape_N+1
+
+Énoncé adapté (AdventureWorks)
+
+À partir de Sales.SalesOrderHeader, modélise un funnel à 3 étapes sur le cycle de vie d’une commande :
+
+Commande créée : toutes les lignes
+Paiement validé : CreditCardApprovalCode IS NOT NULL
+Commande expédiée : ShipDate IS NOT NULL
+
+Affiche le nombre de commandes à chaque étape, et le taux de passage (%) entre chaque étape consécutive.
+
+</details>
+
+<!-- #endregion -->
