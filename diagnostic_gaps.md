@@ -603,6 +603,8 @@ Rappel des méthodes
 <details>
 <summary><h2>J16 — Funnel </h2></summary>
 
+## Exo 1 
+
 Ce qui est attendu
 
 Un funnel mesure, étape par étape, combien d’entités (utilisateurs, commandes) passent à l’étape suivante, et où se situe la plus grosse perte. En BI, c’est l’outil de base pour diagnostiquer un problème de conversion (ex. “70% des paniers ne sont jamais payés” → où agir en priorité).
@@ -624,6 +626,24 @@ Paiement validé : CreditCardApprovalCode IS NOT NULL
 Commande expédiée : ShipDate IS NOT NULL
 
 Affiche le nombre de commandes à chaque étape, et le taux de passage (%) entre chaque étape consécutive.
+
+## Exo 2
+
+(Purchasing.PurchaseOrderHeader) — même logique, nouvelle table.
+
+Contexte : Status (TINYINT) vaut 1 = Pending, 2 = Approved, 3 = Rejected, 4 = Complete.
+
+Énoncé
+
+Modélise un funnel à 3 étapes sur le cycle de vie d’une commande fournisseur :
+
+Commande créée : toutes les lignes
+Approuvée : Status >= 2
+Complétée : Status = 4
+
+Calcule le nombre de commandes à chaque étape, et le taux de passage (%) entre chaque étape consécutive.
+
+Rappel méthode : même structure que l’exercice précédent — comptage conditionnel par étape dans une CTE (sans GROUP BY), puis ratio étape_suivante/étape_précédente × 100 dans la requête externe, en pensant à la conversion décimale.
 
 </details>
 
