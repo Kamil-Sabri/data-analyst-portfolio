@@ -665,11 +665,15 @@ Chaque axe est noté (souvent en quartiles ou quintiles), puis combiné en segme
 
 ## Rappel méthode
 
-Recency : DATEDIFF(day, MAX(OrderDate), date_référence) par client
-Frequency : COUNT(SalesOrderID) par client
-Monetary : SUM(TotalDue) par client
-Scoring par quartile/quintile : fonction fenêtre NTILE(4) ou NTILE(5) OVER (ORDER BY ...)
-LTV simple : SUM(TotalDue) par client (proxy direct), ou AVG(panier) * Frequency
+- Recency : DATEDIFF(day, MAX(OrderDate), date_référence) par client
+
+- Frequency : COUNT(SalesOrderID) par client
+
+- Monetary : SUM(TotalDue) par client
+
+- Scoring par quartile/quintile : fonction fenêtre NTILE(4) ou NTILE(5) OVER (ORDER BY ...)
+
+- LTV simple : SUM(TotalDue) par client (proxy direct), ou AVG(panier) * Frequency
 
 ## Énoncé (AdventureWorks)
 
@@ -679,6 +683,31 @@ LTV simple : SUM(TotalDue) par client (proxy direct), ou AVG(panier) * Frequency
 - Attribue un score en quartile (1 à 4) à chacun des 3 axes
 - Combine les 3 scores en un segment (ex. concaténation ou somme)
 - Calcule une LTV simple comme proxy de valeur client
+
+## Exercices complémentaires pour maîtrise des KPI
+
+Exercice A — Poids de chaque groupe de score
+
+Pour chaque valeur de score (celui combiné à l’exercice précédent), calcule :
+
+le nombre de clients dans ce groupe et son % par rapport au total de clients
+la somme des dépenses du groupe et son % par rapport au CA total
+
+→ Permet de voir si un petit groupe de clients concentre une grosse part du CA (logique Pareto).
+
+Méthodes : GROUP BY score, COUNT(), SUM(total_depenses), puis diviser par un total global (sous-requête scalaire, comme pour la date de référence plus haut).
+
+Exercice B — Analyse Pareto 80/20
+
+Classe les clients par dépense décroissante, calcule le cumul progressif des dépenses, puis le % cumulé par rapport au CA total. Identifie combien de clients (et quel %) génèrent 80% du CA total.
+
+Méthodes : fonction fenêtre cumulative (SUM() OVER (ORDER BY total_depenses DESC ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW)), puis diviser par le total global.
+
+Exercice C — Segmentation nommée et lecture métier
+
+À partir du score combiné, crée une catégorie textuelle par tranche (ex. score bas = “Champions”, score moyen = “Clients réguliers”, score haut = “À risque”). Pour chaque catégorie, calcule le nombre de clients, la LTV moyenne, et le % du CA total représenté.
+
+Méthodes : CASE WHEN sur les bornes de score, puis GROUP BY sur cette catégorie avec les mêmes agrégats qu’en A.
 
 </details>
 <!-- #endregion -->
