@@ -648,3 +648,37 @@ Rappel méthode : même structure que l’exercice précédent — comptage cond
 </details>
 
 <!-- #endregion -->
+
+<!-- #region - J17 — RFM et LTV -->
+<details>
+<summary><h2>J17 — RFM et LTV</h2></summary>
+
+Ce qui est attendu
+
+Le RFM segmente les clients selon 3 axes :
+
+Recency (R) : depuis combien de temps le client n’a pas commandé
+Frequency (F) : combien de commandes il a passées
+Monetary (M) : combien il a dépensé au total
+
+Chaque axe est noté (souvent en quartiles ou quintiles), puis combiné en segments (ex. “champions”, “à risque”, “perdus”). La LTV simple donne une première estimation de la valeur totale générée par un client.
+
+## Rappel méthode
+
+Recency : DATEDIFF(day, MAX(OrderDate), date_référence) par client
+Frequency : COUNT(SalesOrderID) par client
+Monetary : SUM(TotalDue) par client
+Scoring par quartile/quintile : fonction fenêtre NTILE(4) ou NTILE(5) OVER (ORDER BY ...)
+LTV simple : SUM(TotalDue) par client (proxy direct), ou AVG(panier) * Frequency
+
+## Énoncé (AdventureWorks)
+
+À partir de Sales.SalesOrderHeader, pour chaque CustomerID :
+
+- Calcule Recency, Frequency, Monetary
+- Attribue un score en quartile (1 à 4) à chacun des 3 axes
+- Combine les 3 scores en un segment (ex. concaténation ou somme)
+- Calcule une LTV simple comme proxy de valeur client
+
+</details>
+<!-- #endregion -->
